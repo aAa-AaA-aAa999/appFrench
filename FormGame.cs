@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace appFrench
@@ -16,7 +11,7 @@ namespace appFrench
     {
         private int correctAnswers = 0;
         private int wrongAnswers = 0;
-        public int id = 0;
+        private int id = 0;
 
 
         int colourMouseEnter = 0x886ED7; // при наведении мыши
@@ -49,7 +44,8 @@ namespace appFrench
         private void LoadNextWord()
         {
             ResetOptionsState();
-            var wordAndOptions = Db.GetWordAndOptions();
+            string lastWord = labelWordd.Text;
+            var wordAndOptions = Db.GetWordAndOptions(lastWord);
             labelWordd.Text = wordAndOptions.Word;
 
             // Убедитесь, что список опций содержит кортежи с Option и IsCorrect
@@ -81,15 +77,23 @@ namespace appFrench
             if (isCorrect)
             {
                 correctAnswers++;
-                button.BackColor = System.Drawing.Color.FromArgb(179, 255, 210);
+                button.BackColor = Color.FromArgb(179, 255, 210);
                 button.FlatAppearance.BorderColor = Color.FromArgb(134, 236, 176);
+
+                // Отключаем кнопки после выбора ответа, пока не будет нажата кнопка "Следующий уровень"
+                buttonOption1.Enabled = buttonOption2.Enabled = buttonOption3.Enabled = false;
+                buttonNextLevel.Visible = true;
 
             }
             else
             {
                 wrongAnswers++;
-                button.BackColor = System.Drawing.Color.FromArgb(255, 161, 162);
+                button.BackColor = Color.FromArgb(255, 161, 162);
                 button.FlatAppearance.BorderColor = Color.FromArgb(235, 117, 119);
+
+                // Отключаем кнопки после выбора ответа, пока не будет нажата кнопка "Следующий уровень"
+                buttonOption1.Enabled = buttonOption2.Enabled = buttonOption3.Enabled = false;
+                buttonNextLevel.Visible = true;
 
                 if (wrongAnswers >= 3)
                 {
@@ -98,10 +102,6 @@ namespace appFrench
                     StartNewGame();
                 }
             }
-
-            // Отключаем кнопки после выбора ответа, пока не будет нажата кнопка "Следующий уровень"
-            buttonOption1.Enabled = buttonOption2.Enabled = buttonOption3.Enabled = false;
-            buttonNextLevel.Visible = true;
         }
         void saveRecord(int correctAnswer)
         {
@@ -111,10 +111,12 @@ namespace appFrench
             {
                 connection.Open();
                 string quare = "UPDATE Games SET Score = @record, PlayedOn = @date WHERE UserID = @id AND @record > Score AND GameType = 1";
+
                 SqlCommand command = new SqlCommand(quare, connection);
                 command.Parameters.AddWithValue("@record", correctAnswer);
                 command.Parameters.AddWithValue("@id", id);
                 command.Parameters.AddWithValue("@date", DateTime.Now);
+
                 int rowsAffected = command.ExecuteNonQuery();
             }
 
@@ -125,8 +127,8 @@ namespace appFrench
         }
         private void ResetOptionsState()
         {
-            buttonOption1.BackColor = buttonOption2.BackColor = buttonOption3.BackColor = System.Drawing.Color.FromArgb(192, 192, 255);
-            buttonOption1.FlatAppearance.BorderColor = buttonOption2.FlatAppearance.BorderColor = buttonOption3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(128, 128, 255);
+            buttonOption1.BackColor = buttonOption2.BackColor = buttonOption3.BackColor = Color.FromArgb(192, 192, 255);
+            buttonOption1.FlatAppearance.BorderColor = buttonOption2.FlatAppearance.BorderColor = buttonOption3.FlatAppearance.BorderColor = Color.FromArgb(128, 128, 255);
             buttonOption1.Enabled = buttonOption2.Enabled = buttonOption3.Enabled = true;
             buttonNextLevel.Visible = false;
         }
@@ -142,6 +144,13 @@ namespace appFrench
             }
             LoadNextWord();
         }
+
+        private void FormGame_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            saveRecord(correctAnswers);
+        }
+
+
         private void BackGround_Paint(object sender, PaintEventArgs e)
         {
 

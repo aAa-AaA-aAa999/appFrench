@@ -38,10 +38,15 @@ namespace appFrench
                     SqlCommand command = new SqlCommand(quare, connection);
                     command.Parameters.AddWithValue("@log",logTextBox.Text);
                     int id = Convert.ToInt32(command.ExecuteScalar());
-                    FormMain formM = new FormMain(id);
-                    formM.ShowDialog();
+                    string quarelog = "SELECT Username FROM Users WHERE Username = @log";
+                    command = new SqlCommand(quarelog, connection);
+                    command.Parameters.AddWithValue("@log", logTextBox.Text);
+                    string log = command.ExecuteScalar().ToString();
+
                     clearing(logTextBox);
                     clearing(passwordTextBox);
+                    FormMain formM = new FormMain(id, log);
+                    formM.ShowDialog();
                 }
                 
             }
@@ -89,11 +94,7 @@ namespace appFrench
         {
             a.Text = "";
         }
-        private void experim(object sender, EventArgs e)
-        {
-            ExperimentalForm formexp = new ExperimentalForm();
-            formexp.ShowDialog();
-        }
+
         private void BackGround_Paint(object sender, PaintEventArgs e)
         {
 
@@ -101,12 +102,15 @@ namespace appFrench
             Color startColor = Color.FromArgb(207, 209, 255);
             Color endColor = Color.FromArgb(241, 243, 255);
 
-            //Создание градиентной кисти с углом 45 градусов
-            LinearGradientBrush brushh = new LinearGradientBrush(
-                this.ClientRectangle, startColor, endColor, LinearGradientMode.Vertical);
+            if (this.ClientRectangle.Width > 0 && this.ClientRectangle.Height > 0)
+            {
+                // Создание градиентной кисти с углом 45 градусов
+                LinearGradientBrush brushh = new LinearGradientBrush(
+                    this.ClientRectangle, startColor, endColor, LinearGradientMode.Vertical);
 
-            // Нарисовать градиентный фон на форме
-            e.Graphics.FillRectangle(brushh, this.ClientRectangle);
+                // Нарисовать градиентный фон на форме
+                e.Graphics.FillRectangle(brushh, this.ClientRectangle);
+            }
         }
     }
 }

@@ -25,7 +25,7 @@ namespace appFrench
             Db db = new Db();
             try
             {
-                string query = "SELECT Users.Username, UserProgress.LastReviewed " +
+                string query = "SELECT Users.Username, UserProgress.SpeedGameRecord " +
                            "FROM Users " +
                            "INNER JOIN UserProgress ON Users.UserID = UserProgress.UserID";
 
@@ -38,11 +38,10 @@ namespace appFrench
                     while (reader.Read())
                     {
                         string name = reader["Username"].ToString();
-                        string score = reader["LastReviewed"].ToString();
+                        string score = reader["SpeedGameRecord"].ToString();
 
                         topList.Items.Add($"Никнейм: {name}");
-                        topList.Items.Add($"   Счёт:  ◌ {score}");
-
+                        topList.Items.Add($"   Счёт в быстрой игре:  ◌ {score}");
                     }
                 }
             }
@@ -56,11 +55,6 @@ namespace appFrench
                 db.closedConnection();
             }
         }
-        private void TopBoardForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonExit_Click(object sender, EventArgs e)
         {
             this.Close();

@@ -91,7 +91,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "TopBoardForm";
             this.Text = "TopBoardForm";
-            this.Load += new System.EventHandler(this.TopBoardForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

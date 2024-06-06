@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListWordForm));
             this.wordsList = new System.Windows.Forms.ListBox();
             this.buttonExit = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // wordsList
@@ -42,10 +43,11 @@
             this.wordsList.FormattingEnabled = true;
             this.wordsList.HorizontalExtent = 10;
             this.wordsList.HorizontalScrollbar = true;
-            this.wordsList.ItemHeight = 21;
-            this.wordsList.Location = new System.Drawing.Point(28, 90);
+            this.wordsList.ItemHeight = 23;
+            this.wordsList.Location = new System.Drawing.Point(37, 111);
+            this.wordsList.Margin = new System.Windows.Forms.Padding(4);
             this.wordsList.Name = "wordsList";
-            this.wordsList.Size = new System.Drawing.Size(332, 273);
+            this.wordsList.Size = new System.Drawing.Size(432, 322);
             this.wordsList.TabIndex = 15;
             // 
             // buttonExit
@@ -55,33 +57,47 @@
             this.buttonExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonExit.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(255)))));
-            this.buttonExit.Location = new System.Drawing.Point(258, 373);
+            this.buttonExit.Location = new System.Drawing.Point(333, 459);
+            this.buttonExit.Margin = new System.Windows.Forms.Padding(4);
             this.buttonExit.Name = "buttonExit";
-            this.buttonExit.Size = new System.Drawing.Size(102, 33);
+            this.buttonExit.Size = new System.Drawing.Size(136, 41);
             this.buttonExit.TabIndex = 16;
             this.buttonExit.Text = "Закрыть";
             this.buttonExit.UseVisualStyleBackColor = false;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Location = new System.Drawing.Point(110, 63);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 16);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "label1";
+            // 
             // ListWordForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(388, 417);
+            this.ClientSize = new System.Drawing.Size(516, 513);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.wordsList);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ListWordForm";
             this.Text = "ListWordForm";
-            this.Load += new System.EventHandler(this.ListWordForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.ListBox wordsList;
         private System.Windows.Forms.Button buttonExit;
+        private System.Windows.Forms.Label label1;
     }
 }

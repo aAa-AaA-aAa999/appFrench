@@ -24,16 +24,6 @@ namespace appFrench
                    forGradLabelStartColor = Color.FromArgb(241, 243, 255);
                    forGradLabelEndColor = Color.FromArgb(200, 190, 255);
                    break;
-
-                case "Фраза":
-                    SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-                    Text = "La \r\n\r\njeunesse \r\n\r\nest le temps \r\n\r\nd’étudier la \r\n\r\nsagesse, la \r\n\r\nvieillesse est \r\n\r\nle temps de \r\n\r\nla pratiquer\r\n";
-                    Font = new Font("Century Gothic", 14, FontStyle.Bold | FontStyle.Italic);
-                    Location = new Point(11, 8);
-                    Size = new Size(138, 345);
-                    forGradLabelStartColor = Color.FromArgb(241, 243, 255);
-                    forGradLabelEndColor = Color.FromArgb(200, 190, 255);
-                    break;
                 case "Название список":
                     SetStyle(ControlStyles.SupportsTransparentBackColor, true);
                     Text = "Список используемых \r\nв приложении слов\r\n";
@@ -42,36 +32,6 @@ namespace appFrench
                     Size = new Size(329, 64);
                     forGradLabelStartColor = Color.FromArgb(241, 243, 255);
                     forGradLabelEndColor = Color.FromArgb(200, 190, 255);
-                    break;
-                case "Слово":
-                    SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-                    Text = "";
-                    TextAlign = ContentAlignment.MiddleCenter;
-                    Font = new Font("Century Gothic", 30);
-                    Location = new Point(142, 20);
-                    Size = new Size(280, 54);
-                    forGradLabelStartColor = Color.FromArgb(55, 33, 120);
-                    forGradLabelEndColor = Color.FromArgb(108, 72, 215);
-                    break;
-                case "Счёт1":
-                    SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-                    Text = "0";
-                    TextAlign = ContentAlignment.MiddleCenter;
-                    Font = new Font("Century Gothic", 55);
-                    Location = new Point(165, 12);
-                    Size = new Size(100, 87);
-                    forGradLabelStartColor = Color.FromArgb(130, 62, 247);
-                    forGradLabelEndColor = Color.FromArgb(221, 229, 255);
-                    break;
-                case "Счёт2":
-                    SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-                    Text = "0";
-                    TextAlign = ContentAlignment.MiddleCenter;
-                    Font = new Font("Century Gothic", 55);
-                    Location = new Point(165, 101);
-                    Size = new Size(100, 87);
-                    forGradLabelStartColor = Color.FromArgb(130, 62, 247);
-                    forGradLabelEndColor = Color.FromArgb(221, 229, 255);
                     break;
             }
         }

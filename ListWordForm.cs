@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace appFrench
 {
     public partial class ListWordForm : Form
     {
+
         public ListWordForm()
         {
             InitializeComponent();
@@ -22,19 +19,33 @@ namespace appFrench
             // Перемещаем элемент на передний план
             listLabel.BringToFront();
             listLabel.BackColor = Color.Transparent;
-            FillDataGridView();
+            FillListBox();
         }
-
-        private void ListWordForm_Load(object sender, EventArgs e)
-        {
-
-        }
-        private void FillDataGridView()
+        private void FillListBox()
         {
             Db db = new Db();
             try
             {
-                string query = "SELECT Word, Translation FROM Words WHERE IsCorrect = 1 AND LanguagePair != 'RU-FR';";
+                string query = "SELECT Word, Translation FROM Words WHERE IsCorrect = 1 AND LanguagePair != 'RU-FR'";
+
+
+                List<string> selectedCategories = ListExtensions.LoadCheckedListBoxState(ListExtensions.getFilePath())
+                    .Where(category => category.IsChecked)
+                    .Select(category => category.Category)
+                    .ToList();
+
+                // Создаем базовый запрос
+
+                // Если выбраны какие-то категории, добавляем соответствующее условие к запросу
+                if (selectedCategories.Any())
+                {
+                    // Формируем строку с условиями для выбранных категорий
+                    string categoriesCondition = string.Join(" OR ", selectedCategories.Select(category => $"Category = '{category}'"));
+
+                    // Добавляем условие к базовому запросу
+                    query += $" AND ({categoriesCondition})";
+                }
+
 
                 SqlConnection connection = db.getConnection();
                 connection.Open();
@@ -47,7 +58,8 @@ namespace appFrench
                         string word = reader["Word"].ToString();
                         string translation = reader["Translation"].ToString();
 
-                        wordsList.Items.Add($"Слово: {word}    Перевод: {translation}");
+                        wordsList.Items.Add($"Слово: {word}");
+                        wordsList.Items.Add($"      Перевод: {translation}");
                     }
                 }
             }
